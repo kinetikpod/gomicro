@@ -1,0 +1,37 @@
+DATA_SOURCE_URL="root:verysecretpass@tcp(127.0.0.1:3306)/order" \
+APPLICATION_PORT=3000 \
+ENV=development \
+go run cmd/main.go
+
+
+===========================
+grpcurl -plaintext localhost:3000 list
+Order
+grpc.reflection.v1alpha.ServerReflection
+
+grpcurl -plaintext localhost:3000 list Order
+Order.Create
+Order.Get
+
+
+================================
+grpcurl -plaintext \
+  -d '{"user_id": 1, "order_items": [{"product_code": "ABC123", "unit_price": 10000, "quantity": 2}]}' \
+  localhost:3000 Order.Create
+
+
+responnya kira kira:
+{
+  "orderId": "1"
+}
+
+
+
+
+
+
+
+
+
+
+
